@@ -1,0 +1,16 @@
+.headline{
+    margin-top: 50px; 
+    height: 100px;
+    padding: 40px 2em;
+    text-align: center;
+}
+.calculateButton{
+    display: block;
+    margin: 20px auto;
+}
+.CoordBounds{
+    display: block;
+    margin: 10px auto;
+    width: 250px;
+    text-align: center;
+}
