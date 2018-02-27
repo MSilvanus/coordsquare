@@ -1,4 +1,11 @@
 <?php 
+/**
+* //Entspricht einem Punkt im Coordinatensystem
+*
+* @author   Marcel Silvanus
+* @version  1.0
+* @category Coordinaten
+*/
     class point{
         function __construct($x,$y) {
             $this->X = $x;
@@ -8,6 +15,13 @@
             return array($this->X,$this->Y);
         }
     }
+/**
+* //Entspricht einem Punkt ein Einem Viereck
+*
+* @author   Marcel Silvanus
+* @version  1.0
+* @category Coordinaten
+*/
     class squarepoint{
         
         function __construct($percent, $type) {
@@ -34,27 +48,16 @@
             
         }
         function getPointArray(){
-            /*
-            switch($this->type){
-                case "rot":
-                    echo print_r(array([$this->X * -1,$this->Y]));
-                    $arr_point = array([$this->X * -1,$this->Y]);
-                    
-                    break;
-                case "blau":
-                    $arr_point = array([$this->X * -1,$this->Y * -1]);
-                    break;
-                case "gruen":
-                     $arr_point = array([$this->X *-1,$this->Y]);
-                    break;
-                case "gelb":
-                    $arr_point = array([$this->X *-1,$this->Y]);
-                    break;
-            }*/
-            
             return array($this->X,$this->X);
         }
     }
+/**
+* //Entspricht einem Viereck
+*
+* @author   Marcel Silvanus
+* @version  1.0
+* @category Figuren
+*/
     class square{
         function __construct($arr_points) {
             if(count($arr_points) == 4){
@@ -62,8 +65,21 @@
             }
         }
     }
-    
+/**
+* //Entspricht einem Farb-Viereck
+*
+* @author   Marcel Silvanus
+* @version  1.0
+* @category Coordinaten
+*/
     class coordsquare extends square{
+    /**
+    * Wenn vier Prozentzahlen übergeben werden initialisiert die Punkte
+    *
+    * @param Array der Punkte
+    *
+    *
+    */
         function __construct($arr_points_names) {
             if(count($arr_points_names) == 4){
                 
@@ -75,12 +91,14 @@
                 $this->points_names = $arrPointsObject;
             }
         }
+        /**
+        * Berechnet die Schnittstellen mit den Axen
+        */
         function calculateIntersectionPoints(){
             $points = $this->points_names;
-            $this->points_names_bak = &$points;
-
+            //Wenn vier Punkte
             if(count($points) == 4){
-                    
+                    //Initialisierung der Punkte Arrays
                     $point_gelb = $points["gelb"];
 
                     $point_rot = $points["rot"];
@@ -92,6 +110,7 @@
                     $point_gruen = $points["gruen"];
                     $point_gruen->X = &$point_gruen->X * -1;
 
+                    //Für jedes Farbviereck wurde eine Fallunterscheidung entworfen, die bestimmt welcher Punkt höher ist Zum Schluss erhält man ein Array in dem die Schnittpunkte sind
                    
                     //Berechnung Y Positiv Rot und Gelb
                     if($point_rot->Y > $point_gelb->Y){
@@ -110,15 +129,15 @@
                     }elseif($point_rot->X == $point_blau->X){
                         $this->intersections["X_Negativ"] = new point ($point_rot->X, 0);
                     }
-                    //echo print_r($this->intersections);
                     //Berechnung Y Negativ blau und gruen
                     if($point_blau->Y  > $point_gruen->Y){
                        $this->intersections["Y_Negativ"] = new point(0 , $point_blau->Y - helper::calculateStrahlensatz($point_blau,$point_gruen,"Y"));
                     }elseif($point_blau->Y < $point_gruen->Y){
                         $this->intersections["Y_Negativ"] = new point(0 , $point_gruen->Y - helper::calculateStrahlensatz($point_gruen,$point_blau,"Y"));
                     }elseif($point_blau->Y == $point_gruen->Y){
-                        $Y_Axis_Difference["Y_Negativ"] = new point(0,$point_gruen->Y);
+                        $this->intersections["Y_Negativ"] = new point(0, $point_gruen->Y);
                     }
+        
                     //Berechnung X Positiv gruen und gelb
                     if($point_gelb->X > $point_gruen->X){
                         $this->intersections["X_Positiv"] = new point($point_gelb->X + helper::calculateStrahlensatz($point_gelb,$point_gruen,"X"),0);
@@ -131,6 +150,40 @@
                 //$HPoint_X(print_r($this->points_names));
             }
         }
+        /**
+        * Gibt ein Array zurück, dass die Koordinaten der Vier Farbvierecke zurück gibt
+        *
+        *
+        *
+        *
+        * @return Folgendes Array mit Beispiel Daten
+        *array(
+        *        "rot" => array(
+        *            array(-80,80),
+        *            array(0,32),
+        *            array(-40/3,0),
+        *            array(0,0),
+        *        ),
+        *        "gelb" => array(
+        *            array(0,32),
+        *            array(20,20),
+        *            array(0,0),
+        *            array(10,0),
+        *        ),
+        *        "blau" => array(
+        *            array(-40/3,0),
+        *            array(0,0),
+        *            array(-40,-40),
+        *            array(-40/3,0),
+        *        ),
+        *        "gruen" => array(
+        *            array(0,0),
+        *            array(10,0),
+        *            array(0,-40/3),
+        *            array(60,-60),
+        *        ),
+        *    )
+        */
         function getSubSquareCoords(){
             $rot = $this->points_names["rot"]->getPointArray();
             $blau = $this->points_names["blau"]->getPointArray();
@@ -172,18 +225,35 @@
             return $grand_rectangle;
         }
     }
+/**
+* //Enthält statische Hilfsfunktionen
+*
+* @author   Marcel Silvanus
+* @version  1.0
+* @category Hilfe
+*/
+
+    
     class helper{
+        /**
+        * Funktion des Strahlensatzes der die Seite a ausgibt
+           
+        * @param b, c, d
+        * @todo Die Kupplung darf nicht einfach losgelassen werden!
+        *
+        * @return bool
+        */
         public function strahlenSatz_A($b, $c, $d){
             $a = ($d * $b) / $c;
             return $a;
         }
+        /**
+            *verhindert NegativWerte und unterscheidet nach Axe
+        */
         public function calculateStrahlensatz($pointLower,$pointHigher,$axis){
-            $fuckphp1  = &$pointLower;
-            $fuckphp2  = &$pointHigher;
-            unset($pointLower);
-            unset($pointHigher);
-            $LPoint = $fuckphp1;
-            $HPoint = $fuckphp2;
+            
+            $LPoint = &$pointLower;
+            $HPoint = &$pointHigher;
             $LPoint_Y = $LPoint->Y;
             $LPoint_X = $LPoint->X;
             $HPoint_Y = $HPoint->Y;
@@ -218,6 +288,7 @@
             return $result;
         }
     }
+    //Post Funktion gibt das Viereck Array in JSON zurück
     if(isset($_POST["rot"])){
         $grand_rectangle = new coordsquare([
             "rot" => $_POST["rot"],

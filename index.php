@@ -35,11 +35,11 @@
             <div class="jumbotron headline">
                 Bitte geben sie Ihre Werte ein.
             </div>
-            <div class="form-row">
+            <div class="row">
                 <?php
                 foreach($inputs as $inputtype){
                 ?>
-                <div class="col">
+                <div class="col-md-3 col-sm-12">
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <div class="input-group-text"><?php echo $inputtype; ?></div>
