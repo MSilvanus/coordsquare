@@ -10,6 +10,7 @@
     
     $dependencies->add('Ajax Posts','external/js/ajax.js','js');
     $dependencies->add('Button Ereignisse','external/js/buttonhandler.js','js');
+    $dependencies->add('Canvas Feld','external/js/coords.js','js');
     $inputs = Array('rot','gelb','blau','gruen');
 
 
@@ -46,24 +47,20 @@
                 </div>
                 <?php } ?>
             </div>
-            <div>
-                <div class="CoordBounds">
-                    
-                    <label for="txt_bounds">Größe des Koordinatensystems</label>
-                    <input type="text" class="form-control" id="txt_bounds" placeholder="in pixel">
-                    
-                </div>
-            </div>
             <button class="btn btn-md btn-outline-success calculateButton" >Berechnen</button>
+            <div class="draw">
+                <canvas id="coords" style="text-align: center;">
+                </canvas>
+            </div>
         </div>
        
 
 
-        <?php
+       
+    </body>
+     <?php
             foreach($dependencies->getDependenciesbyType('js') as $script){
                 echo '<script src="' . $script->source . '"></script>';
             }
         ?>
-    </body>
-    
 </html>

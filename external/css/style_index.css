@@ -14,3 +14,7 @@
     width: 250px;
     text-align: center;
 }
+#coords{
+    display: block;
+    margin: 0 auto;
+}
