@@ -146,7 +146,7 @@
                     }elseif($point_gelb->X == $point_gruen->X){
                         $this->intersections["X_Positiv"] = new point($point_gruen->X,0);
                     }
-                $this->points_names = $this->points_names_bak;
+
                 //$HPoint_X(print_r($this->points_names));
             }
         }
