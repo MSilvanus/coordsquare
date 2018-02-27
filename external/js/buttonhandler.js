@@ -7,7 +7,13 @@ $(document).on('click','.calculateButton',function(){
         gruen: $('#txt_gruen').val(),
         bounds: $('#txt_bounds').val()
     },function(data){
-        alert(data);
+        try{
+            var rectangles = JSON.parse(data);
+            drawCoordsquare(rectangles);
+        }
+        catch(e){
+            alert("Fehler: Server - " + data + " Client - " + e.message);
+        }
     });
 });
 

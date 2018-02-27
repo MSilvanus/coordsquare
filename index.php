@@ -9,13 +9,15 @@
     $dependencies->add('Bootstrap JavaScript','external/js/bootstrap.min.js','js');
     
     $dependencies->add('Ajax Posts','external/js/ajax.js','js');
-    $dependencies->add('Button Ereignisse','external/js/buttonhandler.js','js');
     $dependencies->add('Canvas Feld','external/js/coords.js','js');
+    $dependencies->add('Button Ereignisse','external/js/buttonhandler.js','js');
     $inputs = Array('rot','gelb','blau','gruen');
 
 
     ?>
     <head>
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
         <?php
             foreach($dependencies->getDependenciesbyType('css') as $stylesheet){
                 echo '<link rel="stylesheet" href="' . $stylesheet->source . '"/>';
