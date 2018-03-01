@@ -1,7 +1,6 @@
 <html>
     <?php 
     require('./modules/utility.php');
-    echo dirname(__FILE__) . '\modules\html_build\external_dependencies.php';
     chdir('./modules/html_build/external_dependencies.php');
     require( './modules/html_build/external_dependencies.php');
     
