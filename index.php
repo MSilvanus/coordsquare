@@ -1,6 +1,11 @@
 <html>
     <?php 
-    include(realpath(dirname(__FILE__)).'\modules\html_build\external_dependencies.php');
+    require('./modules/utility.php');
+    echo dirname(__FILE__) . '\modules\html_build\external_dependencies.php';
+    chdir('./modules/html_build/external_dependencies.php');
+    require( './modules/html_build/external_dependencies.php');
+    
+
     $dependencies = new DependencyList();
     $dependencies->add('Bootstrap Css','external/css/bootstrap.min.css','css');
     $dependencies->add('Stylesheet für index','external/css/style_index.css','css');
